@@ -1,0 +1,6 @@
+@Api.SummerProject.study_HostAddress = http://localhost:5198
+
+GET {{Api.SummerProject.study_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
