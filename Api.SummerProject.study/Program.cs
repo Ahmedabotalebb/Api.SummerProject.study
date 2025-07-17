@@ -1,4 +1,7 @@
 
+using Microsoft.EntityFrameworkCore;
+using Persistence.Data;
+
 namespace Api.SummerProject.study
 {
     public class Program
@@ -13,6 +16,10 @@ namespace Api.SummerProject.study
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddDbContext<StoreDbcontext>(Options =>
+            {
+                Options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection"));
+            });
 
             var app = builder.Build();
 
