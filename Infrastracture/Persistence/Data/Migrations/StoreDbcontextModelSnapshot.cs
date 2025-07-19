@@ -56,7 +56,7 @@ namespace Persistence.Data.Migrations
 
                     b.HasIndex("TypeId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.ProductBrand", b =>
@@ -73,7 +73,7 @@ namespace Persistence.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("productBrands");
+                    b.ToTable("productBrands", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.ProductType", b =>
@@ -90,7 +90,7 @@ namespace Persistence.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("productTypes");
+                    b.ToTable("productTypes", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.Product", b =>
