@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Service
+namespace ServiceAbstrastion
 {
-    public class AssemblyRefrences
+    public interface IServiceManager
     {
+        public IProductService productService { get; }
     }
 }

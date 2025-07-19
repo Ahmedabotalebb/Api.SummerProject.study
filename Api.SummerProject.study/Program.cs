@@ -7,6 +7,7 @@ using Persistence.Data;
 using Persistence.Repositories;
 using Service;
 using Service.MappingProfiles;
+using ServiceAbstrastion;
 
 namespace Api.SummerProject.study
 {
@@ -29,6 +30,7 @@ namespace Api.SummerProject.study
 
             builder.Services.AddScoped<IDataSeeding,DataSeeding>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<IServiceManager,ServiceManager>();
             builder.Services.AddAutoMapper(X=>X.AddProfile(new ProductProfile()));  //we need to add each profile we will do
 
             var app = builder.Build();
