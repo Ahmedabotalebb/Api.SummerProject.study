@@ -1,4 +1,5 @@
 
+using AutoMapper;
 using Domain.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,7 +33,6 @@ namespace Api.SummerProject.study
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IServiceManager,ServiceManager>();
             builder.Services.AddAutoMapper(X=>X.AddProfile(new ProductProfile()));  //we need to add each profile we will do
-
             var app = builder.Build();
 
 
@@ -60,6 +60,7 @@ namespace Api.SummerProject.study
             }
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
             app.UseAuthorization();
 
