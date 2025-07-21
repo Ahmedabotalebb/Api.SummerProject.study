@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistence", "Infrastractu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation", "Infrastracture\Presentation\Presentation.csproj", "{2F8781F7-397B-493D-8C8F-CB633A51CA33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedDtos", "SharedDtos\SharedDtos.csproj", "{316EE503-6A92-416E-9CF7-AA28B0DC08B4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "SharedDtos\Shared.csproj", "{316EE503-6A92-416E-9CF7-AA28B0DC08B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
