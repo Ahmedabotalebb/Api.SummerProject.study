@@ -1,6 +1,6 @@
 @Api.SummerProject.study_HostAddress = http://localhost:5198
 
-GET {{Api.SummerProject.study_HostAddress}}/Api/weatherforecast/
+GET {{Api.SummerProject.study_HostAddress}}/api/weatherforecast/
 Accept: application/json
 
 ###
