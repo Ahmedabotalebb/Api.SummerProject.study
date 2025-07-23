@@ -10,9 +10,9 @@ namespace Service.Specefications
 {
     internal class ProductBrandAndTypeSpecification : BaseSpecification<Product,int>
     {
-        public ProductBrandAndTypeSpecification(int? BrandId, int? TypeId,ProductSortingOptions sortingOption) 
-            :base(P=>(!TypeId.HasValue || P.TypeId==TypeId )&&
-                (!BrandId.HasValue || P.BrandId==BrandId))
+        public ProductBrandAndTypeSpecification(ProductQuery productQuery ) 
+            :base(P=>(!productQuery.TypeId.HasValue || P.TypeId== productQuery.TypeId) &&
+                (!productQuery.BrandId.HasValue || P.BrandId==productQuery.BrandId))
         {
             AddInclude(b=>b.productBrand);  
             AddInclude(b=>b.productType);
@@ -20,7 +20,7 @@ namespace Service.Specefications
 
 
 
-            switch (sortingOption)
+            switch (productQuery.SortingOption)
             {
                 case ProductSortingOptions.NameAsc:
                     AddOrderBy(p => p.Name);
