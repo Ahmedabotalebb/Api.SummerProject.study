@@ -20,10 +20,7 @@ namespace Persistence
             }
             if(specifications.IncludeExpression is not null && specifications.IncludeExpression.Count > 0)
             {
-                foreach( var exp in specifications.IncludeExpression)
-                {
-                    Query = Query.Include(exp);
-                }
+                Query = specifications.IncludeExpression.Aggregate(Query, (CurrentQuery, IncludeExp) => CurrentQuery.Include(IncludeExp));
             }
 
             return Query;

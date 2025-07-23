@@ -4,3 +4,4 @@ GET {{Api.SummerProject.study_HostAddress}}/api/weatherforecast/
 Accept: application/json
 
 ###
+GET {{Api.SummerProject.study_HostAddress}}/api/Products/

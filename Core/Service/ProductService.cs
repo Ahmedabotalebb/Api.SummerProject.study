@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Domain.Contracts;
 using Domain.Models;
+using Service.Specefications;
 using ServiceAbstrastion;
 using Shared.DataTransfereObjects;
 
@@ -21,7 +22,8 @@ namespace Service
 
         public async Task<IEnumerable<ProductDto>> GetAllProductsAsync()
         {
-            var Products =await  _unitOfWork.GetRepository<Product,int>().GetAllAsync();
+            var Specifications = new ProductBrandAndTypeSpecification();
+            var Products =await  _unitOfWork.GetRepository<Product,int>().GetAllAsync(Specifications);
             return _mapper.Map<IEnumerable<Product>,IEnumerable<ProductDto>>(Products);
         }
 
@@ -33,7 +35,8 @@ namespace Service
 
         public async Task<ProductDto> GetProductByIdAsync(int id)
         {
-            var Product=await _unitOfWork.GetRepository<Product,int>().GetByIdAsync(id);
+            var Specifications = new ProductBrandAndTypeSpecification();
+            var Product=await _unitOfWork.GetRepository<Product,int>().GetByIdAsync(Specifications);
             return _mapper.Map<Product,ProductDto>(Product);
         }
     }
