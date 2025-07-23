@@ -25,5 +25,5 @@ namespace Persistence
 
             return Query;
         }
-    }
+    }           
 }

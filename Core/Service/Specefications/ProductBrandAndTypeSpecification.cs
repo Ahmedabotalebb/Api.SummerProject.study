@@ -9,7 +9,9 @@ namespace Service.Specefications
 {
     internal class ProductBrandAndTypeSpecification : BaseSpecification<Product,int>
     {
-        public ProductBrandAndTypeSpecification():base(null)
+        public ProductBrandAndTypeSpecification(int? BrandId, int? TypeId) 
+            :base(P=>(!TypeId.HasValue || P.TypeId==TypeId )&&
+                (!BrandId.HasValue || P.BrandId==BrandId))
         {
             AddInclude(b=>b.productBrand);  
             AddInclude(b=>b.productType);  
