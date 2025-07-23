@@ -11,9 +11,9 @@ namespace Service.Specefications
 {
     abstract class BaseSpecification<TEntity, TKey> : ISpecifications<TEntity, TKey> where TEntity : BaseEntity<TKey>
     {
-        protected BaseSpecification(Expression<Func<TEntity,bool>>? critereaExpression)
+        protected BaseSpecification(Expression<Func<TEntity, bool>>? critereaExpression)
         {
-            Criteria=critereaExpression;
+            Criteria = critereaExpression;
         }
 
         public Expression<Func<TEntity, bool>>? Criteria { get; private set; }
@@ -27,13 +27,15 @@ namespace Service.Specefications
         }
         #endregion
         #region Sorting
-        public  Expression<Func<TEntity, object>> OrederBy { get; private set; }
-        public  Expression<Func<TEntity, object>> OrederByDesc { get; private set ;}
+        public Expression<Func<TEntity, object>> OrederBy { get; private set; }
+        public Expression<Func<TEntity, object>> OrederByDesc { get; private set; }
+
 
         protected void AddOrderBy(Expression<Func<TEntity, object>> OrderExp) => OrederBy = OrderExp;
         protected void AddOrderByDesc(Expression<Func<TEntity, object>> OrderDescExp) => OrederByDesc = OrderDescExp;
 
 
         #endregion
+       
     }
 }

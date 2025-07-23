@@ -17,5 +17,6 @@ namespace Domain.Contracts
         public List<Expression<Func<TEntity,object>>> IncludeExpression {  get;}
         public Expression<Func<TEntity,Object>> OrederBy { get;}
         public Expression<Func<TEntity,Object>> OrederByDesc { get; }
+
     }
 }

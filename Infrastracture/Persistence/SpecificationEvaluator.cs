@@ -15,7 +15,7 @@ namespace Persistence
         {
             var Query = InputQuery;
             if(specifications.Criteria is not null)
-            {
+            { 
                 Query= Query.Where(specifications.Criteria);
             }
 

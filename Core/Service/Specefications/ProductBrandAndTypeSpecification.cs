@@ -10,9 +10,10 @@ namespace Service.Specefications
 {
     internal class ProductBrandAndTypeSpecification : BaseSpecification<Product,int>
     {
-        public ProductBrandAndTypeSpecification(ProductQuery productQuery ) 
-            :base(P=>(!productQuery.TypeId.HasValue || P.TypeId== productQuery.TypeId) &&
-                (!productQuery.BrandId.HasValue || P.BrandId==productQuery.BrandId))
+        public ProductBrandAndTypeSpecification(ProductQuery productQuery)
+            : base(P => (!productQuery.TypeId.HasValue || P.TypeId == productQuery.TypeId) &&
+                (!productQuery.BrandId.HasValue || P.BrandId == productQuery.BrandId) &&
+                (string.IsNullOrEmpty(productQuery.SearchValue) || P.Name.ToLower().Contains(productQuery.SearchValue.ToLower())))
         {
             AddInclude(b=>b.productBrand);  
             AddInclude(b=>b.productType);
@@ -39,6 +40,8 @@ namespace Service.Specefications
             }
 
 
+
+           
         }
 
         public ProductBrandAndTypeSpecification(int id):base(B=>B.Id==id)
