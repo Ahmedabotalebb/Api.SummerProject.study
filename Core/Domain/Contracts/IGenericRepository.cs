@@ -20,6 +20,7 @@ namespace Domain.Contracts
 
         public Task<IEnumerable<TEntity>> GetAllAsync(ISpecifications<TEntity, Tkey> specifications);
         public Task<TEntity?> GetByIdAsync(ISpecifications<TEntity, Tkey> specifications);
+        public Task<int> CountAsync(ISpecifications<TEntity, Tkey> specifications);
 
         #endregion
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Contracts;
@@ -32,7 +33,10 @@ namespace Persistence.Repositories
         public async Task<TEntity?> GetByIdAsync(ISpecifications<TEntity, TKey> specifications)
         {
             return await SpecificationEvaluator.CreateQuery(_dbContext.Set<TEntity>(), specifications).FirstOrDefaultAsync();
-        } 
+        }
+
+        public async Task<int> CountAsync(ISpecifications<TEntity, TKey> specifications)
+            => await SpecificationEvaluator.CreateQuery(_dbContext.Set<TEntity> (), specifications).CountAsync();
         #endregion
     }
 }
