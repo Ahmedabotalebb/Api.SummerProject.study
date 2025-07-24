@@ -39,6 +39,8 @@ namespace Service.Specefications
                     break;
             }
 
+            ApplyPagenation(productQuery.PageSize, productQuery.PageIndex);
+
 
 
            

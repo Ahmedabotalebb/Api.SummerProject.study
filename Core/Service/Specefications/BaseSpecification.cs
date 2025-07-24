@@ -30,12 +30,25 @@ namespace Service.Specefications
         public Expression<Func<TEntity, object>> OrederBy { get; private set; }
         public Expression<Func<TEntity, object>> OrederByDesc { get; private set; }
 
-
         protected void AddOrderBy(Expression<Func<TEntity, object>> OrderExp) => OrederBy = OrderExp;
         protected void AddOrderByDesc(Expression<Func<TEntity, object>> OrderDescExp) => OrederByDesc = OrderDescExp;
 
 
         #endregion
-       
+
+        #region Pagenation
+        
+
+        public int Take { get; private set; } 
+        public int Skip { get; private set; } 
+        public bool IsPagenated { get; set ;} 
+
+        public void ApplyPagenation(int pageSize , int pageIndex)
+        {
+            IsPagenated = true;
+            Take = pageSize;
+            Skip=(pageIndex-1)*pageSize;
+        }
+        #endregion
     }
 }

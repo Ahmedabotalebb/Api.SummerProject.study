@@ -18,5 +18,8 @@ namespace Domain.Contracts
         public Expression<Func<TEntity,Object>> OrederBy { get;}
         public Expression<Func<TEntity,Object>> OrederByDesc { get; }
 
+        public int Take { get;}
+        public int Skip { get; } 
+        public bool IsPagenated { get; set; }   
     }
 }
