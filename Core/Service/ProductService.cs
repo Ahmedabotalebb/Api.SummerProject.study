@@ -21,11 +21,13 @@ namespace Service
             return _mapper.Map<IEnumerable<ProductBrand>, IEnumerable<BrandDto>>(Brands);
         }
 
-        public async Task<IEnumerable<ProductDto>> GetAllProductsAsync(ProductQuery productQuery)
+        public async Task<PagenationResult<ProductDto>> GetAllProductsAsync(ProductQuery productQuery)
         {
             var Specifications = new ProductBrandAndTypeSpecification(productQuery);
             var Products =await  _unitOfWork.GetRepository<Product,int>().GetAllAsync(Specifications);
-            return _mapper.Map<IEnumerable<Product>,IEnumerable<ProductDto>>(Products);
+            var AllproductDto = _mapper.Map<IEnumerable<Product>,IEnumerable<ProductDto>>(Products);
+            var productCount = AllproductDto.Count();
+            return new PagenationResult<ProductDto>(productQuery.PageIndex, 0, productCount, AllproductDto);
         }
 
         public async Task<IEnumerable<TypesDto>> GetAllTypesAsync()
