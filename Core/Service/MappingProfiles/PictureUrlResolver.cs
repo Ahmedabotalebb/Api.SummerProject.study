@@ -10,8 +10,13 @@ using Shared.DataTransfereObjects;
 
 namespace Service.MappingProfiles
 {
-    internal class PictureUrlResolver(IConfiguration _configuration) : IValueResolver<Product, ProductDto, string>
+    internal class PictureUrlResolver: IValueResolver<Product, ProductDto, string>
     {
+        private readonly IConfiguration _configuration;
+        public PictureUrlResolver(IConfiguration configuration)
+        {
+            this._configuration= configuration;
+        }
         public string Resolve(Product source, ProductDto destination, string destMember, ResolutionContext context)
         {
             if (string.IsNullOrEmpty(source.PictureUrl))
