@@ -1,5 +1,6 @@
 ﻿using Domain.Exceptions;
 using Shared;
+using Shared.ErrorModels;
 
 namespace Api.SummerProject.study.CustomMiddleWare
 {

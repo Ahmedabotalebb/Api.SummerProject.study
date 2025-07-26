@@ -2,6 +2,8 @@
 using Api.SummerProject.study.CustomMiddleWare;
 using AutoMapper;
 using Domain.Contracts;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence;
@@ -10,6 +12,7 @@ using Persistence.Repositories;
 using Service;
 using Service.MappingProfiles;
 using ServiceAbstrastion;
+using Shared.ErrorModels;
 
 namespace Api.SummerProject.study
 {
@@ -34,6 +37,25 @@ namespace Api.SummerProject.study
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IServiceManager,ServiceManager>();
             builder.Services.AddAutoMapper(X=>X.AddProfile(new ProductProfile()));  //we need to add each profile we will do
+            builder.Services.Configure<ApiBehaviorOptions>(Options =>
+            {
+                Options.InvalidModelStateResponseFactory = (context) =>
+                {
+                    var Errors = context.ModelState.Where(E => E.Value.Errors.Any())
+                    .Select(M => new ValidationError()
+                    {
+                        Field=M.Key,
+                        Errors=M.Value.Errors.Select(E=>E.ErrorMessage)
+                    });
+                    var response = new ValidationToReturn()
+                    {
+                        ValidationErrors = Errors
+                    };
+                    return new BadRequestObjectResult(response);
+                };
+                 
+                
+            });
             var app = builder.Build();
 
 
