@@ -18,6 +18,7 @@ namespace Api.SummerProject.study.CustomMiddleWare
             try
             {
                 await _next.Invoke(context);
+                await NotFountEndPointAsync(context);
 
             }
             catch (Exception ex)
@@ -27,21 +28,38 @@ namespace Api.SummerProject.study.CustomMiddleWare
 
                 //context.Response.ContentType = "application/json";
 
-                context.Response.StatusCode = ex switch
-                {
-                    NotFoundException => StatusCodes.Status404NotFound,
-                    _ => StatusCodes.Status500InternalServerError,
-                };
-
-                var Error = new ErrorToReturn()
-                {
-                    StatusCode = context.Response.StatusCode,
-                    ErrorMessage = ex.Message
-                };
-
-                await context.Response.WriteAsJsonAsync(Error);   //Convert Any Type To Json automaticly
+                await HandlingExceptionAsync(context, ex);   //Convert Any Type To Json automaticly
             }
         }
 
+        private static async Task HandlingExceptionAsync(HttpContext context, Exception ex)
+        {
+            context.Response.StatusCode = ex switch
+            {
+                NotFoundException => StatusCodes.Status404NotFound,
+                _ => StatusCodes.Status500InternalServerError,
+            };
+
+            var Error = new ErrorToReturn()
+            {
+                StatusCode = context.Response.StatusCode,
+                ErrorMessage = ex.Message
+            };
+
+            await context.Response.WriteAsJsonAsync(Error);
+        }
+
+        private static async Task NotFountEndPointAsync(HttpContext context)
+        {
+            if (context.Response.StatusCode == StatusCodes.Status404NotFound)
+            {
+                var Response = new ErrorToReturn()
+                {
+                    StatusCode = StatusCodes.Status404NotFound,
+                    ErrorMessage = $"The End Point {context.Request.Path} is not found"
+                };
+                await context.Response.WriteAsJsonAsync(Response);
+            }
+        } 
     }
 }
