@@ -1,4 +1,5 @@
-﻿using Shared;
+﻿using Domain.Exceptions;
+using Shared;
 
 namespace Api.SummerProject.study.CustomMiddleWare
 {
@@ -23,13 +24,18 @@ namespace Api.SummerProject.study.CustomMiddleWare
             {
                 _logger.LogError(ex.Message);
 
-                context.Response.StatusCode = StatusCodes.Status500InternalServerError;
 
-                context.Response.ContentType = "application/json";
+                //context.Response.ContentType = "application/json";
+
+                context.Response.StatusCode = ex switch
+                {
+                    NotFoundException => StatusCodes.Status404NotFound,
+                    _ => StatusCodes.Status500InternalServerError,
+                };
 
                 var Error = new ErrorToReturn()
                 {
-                    StatusCode = StatusCodes.Status500InternalServerError,
+                    StatusCode = context.Response.StatusCode,
                     ErrorMessage = ex.Message
                 };
 
