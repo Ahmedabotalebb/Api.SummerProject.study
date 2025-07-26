@@ -1,4 +1,5 @@
 
+using Api.SummerProject.study.CustomMiddleWare;
 using AutoMapper;
 using Domain.Contracts;
 using Microsoft.EntityFrameworkCore;
@@ -53,6 +54,7 @@ namespace Api.SummerProject.study
             }
 
             // Configure the HTTP request pipeline.
+            app.UseMiddleware<CustomExceptionHandlerMiddleWare>();
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
