@@ -18,6 +18,7 @@ namespace Service
         {
             Services.AddScoped<IServiceManager, ServiceManager>();
             Services.AddAutoMapper(X => X.AddProfile(new ProductProfile()));  //we need to add each profile we will do
+            Services.AddAutoMapper(X => X.AddProfile(new BasketProfile()));  //we need to add each profile we will do
 
             return Services;
         }
