@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Exceptions
 {
-    public abstract class NotFoundException<T>(T id) : Exception($"the item number {id} is not found")
+    public abstract class NotFoundException(string id) : Exception($"the item number {id} is not found")
     {
     }
 }
