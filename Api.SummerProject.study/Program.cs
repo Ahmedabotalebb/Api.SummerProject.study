@@ -1,6 +1,11 @@
 
+using Api.SummerProject.study.CustomMiddleWare;
+using Api.SummerProject.study.Extentions;
+using Api.SummerProject.study.Factories;
 using AutoMapper;
 using Domain.Contracts;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence;
@@ -9,6 +14,7 @@ using Persistence.Repositories;
 using Service;
 using Service.MappingProfiles;
 using ServiceAbstrastion;
+using Shared.ErrorModels;
 
 namespace Api.SummerProject.study
 {
@@ -19,31 +25,25 @@ namespace Api.SummerProject.study
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            #region Add Services To The Container
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-            builder.Services.AddDbContext<StoreDbcontext>(Options =>
-            {
-                Options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection"));
-            });
 
-            builder.Services.AddScoped<IDataSeeding,DataSeeding>();
-            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-            builder.Services.AddScoped<IServiceManager,ServiceManager>();
-            builder.Services.AddAutoMapper(X=>X.AddProfile(new ProductProfile()));  //we need to add each profile we will do
-            var app = builder.Build();
+            builder.Services.AddSwaggerServices();
 
+            builder.Services.AddApplicationService();
+            builder.Services.AddInfrastructureService(builder.Configuration);
 
+            builder.Services.AddWebApplicationServices();
+         
+            #endregion
 
+            var app = builder.Build();  
 
             try
             {
-                using var scoope = app.Services.CreateScope();
-
-                var ObjectOfDataSeeding = scoope.ServiceProvider.GetRequiredService<IDataSeeding>();
-                await ObjectOfDataSeeding.DataSeedAsync();
+                await app.SeedDataAsync();
 
             }
             catch (Exception)
@@ -53,11 +53,10 @@ namespace Api.SummerProject.study
             }
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+
+            app.UseCustumMiddelWareException();
+
+            app.UseSwaggerMiddelWares();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

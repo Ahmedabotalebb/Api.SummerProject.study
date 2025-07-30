@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using Domain.Models;
+using Domain.Models.ProductModule;
 using Microsoft.Extensions.Configuration;
-using Shared.DataTransfereObjects;
+using Shared.DataTransfereObjects.ProductModuleDTO;
 
 namespace Service.MappingProfiles
 {
