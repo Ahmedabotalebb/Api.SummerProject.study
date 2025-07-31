@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence.Data;
+using Persistence.Identity;
 using Persistence.Repositories;
 using StackExchange.Redis;
 
@@ -28,6 +29,11 @@ namespace Persistence
             Services.AddSingleton<IConnectionMultiplexer>((_) =>
             {
                return  ConnectionMultiplexer.Connect(Configuration.GetConnectionString("RedisConnectionString"));
+            });
+
+            Services.AddDbContext<StoreIdentityDbContext>(Options =>
+            {
+                Options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection"));
             });
 
             return Services;

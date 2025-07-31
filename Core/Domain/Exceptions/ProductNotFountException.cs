@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Exceptions
 {
-    public class ProductNotFountException(int id):NotFoundException(id.ToString())
+    public sealed class ProductNotFountException(int id):NotFoundException($"Product With id : {id} is not found")
     {
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Exceptions
 {
-    public class BasketNotFoundException(string id) :NotFoundException($"basket with Id {id} is not found")
+    public sealed class BasketNotFoundException(string id) :NotFoundException($"basket with Id {id} is not found")
     {
     }
 }
