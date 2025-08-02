@@ -12,6 +12,7 @@ namespace Api.SummerProject.study.Extentions
 
             var ObjectOfDataSeeding = scoope.ServiceProvider.GetRequiredService<IDataSeeding>();
             await ObjectOfDataSeeding.DataSeedAsync();
+            await ObjectOfDataSeeding.IdentityDataSeedAsync();
             return app;
         }
 

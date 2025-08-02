@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Contracts;
+using Domain.Models.IdentityModule;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,6 +37,10 @@ namespace Persistence
             {
                 Options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection"));
             });
+
+            //Data seeding for identity DB
+            Services.AddIdentityCore<ApplicationUser>()
+                .AddRoles<IdentityRole>().AddEntityFrameworkStores<StoreIdentityDbContext>();
 
             return Services;
         }        
