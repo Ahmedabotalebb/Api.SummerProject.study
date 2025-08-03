@@ -69,6 +69,9 @@ namespace Persistence
 
         public async Task IdentityDataSeedAsync()
         {
+            if (_identityDbContext.Database.GetPendingMigrations().Any())
+                _identityDbContext.Database.Migrate();
+
 
             try
             {
@@ -99,8 +102,8 @@ namespace Persistence
                     await _userManager.CreateAsync(User02, "P@ss0rd");
 
 
-                    _userManager.AddToRoleAsync(User01, "Admin");
-                    _userManager.AddToRoleAsync(User01, "SuperAdmin");
+                    await _userManager.AddToRoleAsync(User01, "Admin");
+                    await _userManager.AddToRoleAsync(User01, "SuperAdmin");
                 }
                 await _identityDbContext.SaveChangesAsync();
             }
