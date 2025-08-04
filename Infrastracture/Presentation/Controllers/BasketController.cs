@@ -9,9 +9,8 @@ using Shared.DataTransfereObjects.BasketDto;
 
 namespace Presentation.Controllers
 {
-    [ApiController]
-    [Route("api/[Controller]")]
-    public class BasketController(IServiceManager _serviceManager) : ControllerBase
+
+    public class BasketController(IServiceManager _serviceManager) :ApiBaseController
     {
         [HttpPost]
         public async Task<ActionResult<BasketDto>> CreateOrUpdateBasket(BasketDto basketDto)
