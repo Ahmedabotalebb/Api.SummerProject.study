@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceAbstrastion;
 using Shared;
@@ -13,6 +14,7 @@ namespace Presentation.Controllers
     public class ProductsController(IServiceManager _serviceManager):ApiBaseController
     {
         //GetAllProducts
+        //[Authorize]
         [HttpGet]
         public async Task<ActionResult<PagenationResult<ProductDto>>> GetAllProductsAsync([FromQuery]ProductQuery productQuery)
         {
@@ -20,7 +22,9 @@ namespace Presentation.Controllers
             return Ok(Products);
         }
 
+
         //Get Product By Id
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductDto>> GetProductAsync(int id) //Started From 24
         {
