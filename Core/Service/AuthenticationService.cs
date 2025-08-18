@@ -41,7 +41,7 @@ namespace Service
                return  _mapper.Map<Address, AddressDto>(User.Address);
             else
                 throw new AddressNotFoundException(email) ;
-        }
+        }   
 
 
         public async Task<AddressDto> UpdateCurrentUserAddressAsync(AddressDto UpdatedaddressDto, string email)
@@ -63,6 +63,8 @@ namespace Service
 
             return _mapper.Map<AddressDto>(User.Address);
         }
+
+         
 
         public async Task<UserDto> LoginAsync(LoginDto loginDto)
         {
@@ -108,7 +110,6 @@ namespace Service
 
             }
         }
-         
         private async Task<string> CreateTokenAsync(ApplicationUser user)
         {
             var Claims = new List<Claim>
