@@ -35,20 +35,29 @@ namespace Api.SummerProject.study.CustomMiddleWare
 
         private static async Task HandlingExceptionAsync(HttpContext context, Exception ex)
         {
-            context.Response.StatusCode = ex switch
-            {
-                NotFoundException => StatusCodes.Status404NotFound,
-                _ => StatusCodes.Status500InternalServerError,
-            };
-
             var Error = new ErrorToReturn()
             {
                 StatusCode = context.Response.StatusCode,
                 ErrorMessage = ex.Message
             };
 
+
+            context.Response.StatusCode = ex switch
+            {
+                NotFoundException => StatusCodes.Status404NotFound,
+                UnAuthorizedException => StatusCodes.Status401Unauthorized,
+                BadRequestException badRequestException => GetBadRequestErrors(badRequestException, Error),
+                _ => StatusCodes.Status500InternalServerError,
+            };
             await context.Response.WriteAsJsonAsync(Error);
         }
+        public static int GetBadRequestErrors(BadRequestException badRequestException, ErrorToReturn errorToReturn)
+        {
+            errorToReturn.Errors = badRequestException.Errors;
+            return StatusCodes.Status400BadRequest;
+        }
+
+
 
         private static async Task NotFountEndPointAsync(HttpContext context)
         {

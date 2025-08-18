@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Exceptions
 {
-    public sealed class ProductNotFountException(int id):NotFoundException($"Product With id : {id} is not found")
+    public sealed class BadRequestException(List<string> Errors) : Exception("Validation Failed")
     {
+        public List<string> Errors { get; } = Errors;
     }
 }

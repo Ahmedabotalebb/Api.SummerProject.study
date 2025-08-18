@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Exceptions
 {
-    public sealed class ProductNotFountException(int id):NotFoundException($"Product With id : {id} is not found")
+    public sealed class UserNotFoundException(string user) :Exception(user)
     {
     }
 }

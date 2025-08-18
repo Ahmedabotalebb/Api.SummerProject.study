@@ -31,6 +31,7 @@ namespace Api.SummerProject.study
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
             builder.Services.AddSwaggerServices();
+            builder.Services.AddJWTService(builder.Configuration);
 
             builder.Services.AddApplicationService();
             builder.Services.AddInfrastructureService(builder.Configuration);
@@ -60,7 +61,8 @@ namespace Api.SummerProject.study
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
