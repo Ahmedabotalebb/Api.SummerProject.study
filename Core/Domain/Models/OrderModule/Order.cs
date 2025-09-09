@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Domain.Models.OrderModule
 {
@@ -13,11 +14,10 @@ namespace Domain.Models.OrderModule
         public DateTimeOffset OrderDate { get; set; } = DateTimeOffset.Now;
         OrderStatus Status { get; set; }
 
-        DeliveryMethod DeliveryMethod { get; set; } = default!;
+        public DeliveryMethod DeliveryMethod { get; set; } = default!;
         public int DeliveryMethodId { get; set; } //fk
 
-
-        ShipingAddress ShipingAddress { get; set; } = default!;
+        public ShipingAddress ShipingAddress { get; set; } = default!;
         public ICollection<OrderItem> Items { get; set; } = [];
         public decimal SubTotal { get; set; }
 

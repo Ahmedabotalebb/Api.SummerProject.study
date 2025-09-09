@@ -8,7 +8,7 @@ namespace Domain.Models.OrderModule
 {
     public class OrderItem :BaseEntity<int>
     {
-        ProductItemOredered ProductItemOredered { get; set; } = default!;
+        public ProductItemOredered ProductItemOredered { get; set; } = default!;
         public decimal Price { get; set; }
         public int Quantity { get; set; }
 
