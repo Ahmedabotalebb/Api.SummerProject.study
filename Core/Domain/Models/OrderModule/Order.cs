@@ -8,20 +8,38 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Domain.Models.OrderModule
 {
+
     public class Order:BaseEntity<Guid>
     {
+        public Order()
+        {
+            
+        }
+
+        public Order(string userEmail, DeliveryMethod deliveryMethod, ShipingAddress shipingAddress, ICollection<OrderItem> items, decimal subTotal)
+        {
+            UserEmail = userEmail;
+            DeliveryMethod = deliveryMethod;
+            ShipingAddress = shipingAddress;
+            Items = items;
+            SubTotal = subTotal;
+        }
+
         public string UserEmail { get; set; } = default!;
-        public DateTimeOffset OrderDate { get; set; } = DateTimeOffset.Now;
-        OrderStatus Status { get; set; }
-
         public DeliveryMethod DeliveryMethod { get; set; } = default!;
-        public int DeliveryMethodId { get; set; } //fk
-
         public ShipingAddress ShipingAddress { get; set; } = default!;
         public ICollection<OrderItem> Items { get; set; } = [];
         public decimal SubTotal { get; set; }
 
+
+
+        OrderStatus Status { get; set; }
+        public DateTimeOffset OrderDate { get; set; } = DateTimeOffset.Now;
         public decimal GetTotal() => SubTotal + DeliveryMethod.Price;
+
+        public int DeliveryMethodId { get; set; } //fk
+
+
 
     }
 }

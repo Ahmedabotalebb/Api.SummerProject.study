@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Models.OrderModule
 {
-    public class DeliveryMethod
+    public class DeliveryMethod:BaseEntity<int>
     {
-        public int Id { get; set; }
         public string ShortName { get; set; } = default!;
         public string Description { get; set; } = default!;
         public string DeliveryTime { get; set; } = default!;
