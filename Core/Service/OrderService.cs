@@ -8,6 +8,8 @@ using Domain.Contracts;
 using Domain.Exceptions;
 using Domain.Models.OrderModule;
 using Domain.Models.ProductModule;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Service.Specefications;
 using ServiceAbstrastion;
 using Shared.DataTransfereObjects.Authentication;
 using Shared.DataTransfereObjects.OrderDtos;
@@ -43,10 +45,7 @@ namespace Service
             await unitOfWork.SaveChangesAsync();
             return  mapper.Map<Order,OrderToReturnDto>(Order);
         }
-          
-
-
-
+         
         private static OrderItem CreateOrderItem(Domain.Models.BasketModule.BasketItem item, Product product)
         {
             return new OrderItem()
@@ -58,5 +57,26 @@ namespace Service
         }
 
 
+
+        public async Task<IEnumerable<DeliveryMthodDto>> GetDeliveryMethodsAsync()
+        {
+            var methods =  await unitOfWork.GetRepository<DeliveryMethod,int>().GetAllAsync();
+            return mapper.Map<IEnumerable<DeliveryMethod>, IEnumerable<DeliveryMthodDto>>(methods);
+        }
+
+        public async Task<IEnumerable<OrderToReturnDto>> GetAllOdersAsync(string email)
+        {
+            var spec = new OrderSpecifications(email);
+            var Orders = await unitOfWork.GetRepository<Order, Guid>().GetAllAsync(spec);
+            return mapper.Map<IEnumerable<Order>,IEnumerable<OrderToReturnDto>>(Orders);
+        }
+
+        public async Task<OrderToReturnDto> GetOderByIdAsync(Guid id)
+        {
+            var spec=new OrderSpecifications(id);
+            var order= await unitOfWork.GetRepository<Order,Guid>().GetByIdAsync(spec);
+            return mapper.Map<Order, OrderToReturnDto>(order);
+
+        }
     }
 }

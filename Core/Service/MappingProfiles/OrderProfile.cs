@@ -19,7 +19,7 @@ namespace Service.MappingProfiles
 
             CreateMap<OrderItem, OrderItemDto>().ForMember(D => D.Name, o => o.MapFrom(s => s.ProductItemOredered.Name))
                 .ForMember(d => d.PictureUrl, o => o.MapFrom<OrderItemPictureUrlResolver>());
-
+            CreateMap<DeliveryMethod,DeliveryMthodDto>().ReverseMap();
         }
     }
 }
